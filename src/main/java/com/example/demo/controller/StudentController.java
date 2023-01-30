@@ -27,8 +27,19 @@ public class StudentController {
 	
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/addStudent")
-	public Student addStudent(@RequestBody Student student) {
-		return service.saveStudent(student);
+	public String addStudent(@RequestBody Student student) {
+		Student newservice = service.getStudentByName(student.getName());
+		// validation statement : if already same name exist ,it wont work
+		if(newservice == null){
+			service.saveStudent(student);
+			//System.out.println("Success");
+			return ("Sucess");
+		}
+		else {
+			//System.out.println("Failure : Identical name exist");
+			return("Failure : Identical name exist");
+		}
+		
 	}
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/addStudents")

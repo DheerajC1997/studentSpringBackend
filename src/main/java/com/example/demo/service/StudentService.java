@@ -19,6 +19,7 @@ public class StudentService {
 	private StudentRepository repository;
 	
 	public Student saveStudent(Student student) {
+		
 		return repository.save(student);
 	}
 	public List<Student> saveStudents(List<Student>student){
@@ -46,12 +47,16 @@ public class StudentService {
 	}
 	public Student updateStudent(Student student) {
 		Student existingStudent = repository.findById(student.getId()).orElse(null);
-		existingStudent.setName(student.getName());
-		existingStudent.setDate(student.getDate());
-		existingStudent.setClasses(student.getClasses());
-		existingStudent.setDivision(student.getDivision());
-		existingStudent.setGender(student.getGender());
-		return repository.save(existingStudent);
+//		existingStudent.setName(student.getName());
+//		existingStudent.setDate(student.getDate());
+//		existingStudent.setClasses(student.getClasses());
+//		existingStudent.setDivision(student.getDivision());
+//		existingStudent.setGender(student.getGender());
+//		return repository.save(existingStudent);
+		if(existingStudent != null) {
+			 repository.save(student);
+		}
+		return null;
 	}
 	
 	}
