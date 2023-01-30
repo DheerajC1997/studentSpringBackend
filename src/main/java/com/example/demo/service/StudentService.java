@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.Student;
@@ -24,7 +25,8 @@ public class StudentService {
 		return repository.saveAll(student);
 	}
 	public List<Student> getStudents(){
-		return repository.findAll();
+		return repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
+		//return repository.findAll();
 	}
 	public Student getStudentById(int id) {
 //		Optional<Student> findById=repository.findById(id);

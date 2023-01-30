@@ -2,20 +2,16 @@ package com.example.demo.entity;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name ="Student_Table")
+@Document(collection = "student")
 public class Student {
 	@Id
-	@GeneratedValue
 	private int id;
 	private String name;
 	private Date date;
-	private String classes;
+	private String classes; 
 	private String division;
 	private String gender;
 	
