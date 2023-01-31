@@ -32,27 +32,31 @@ public class StudentController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/addStudent")
 	public String addStudent(@RequestBody Student student) {
-		Student newservice = service.getStudentByName(student.getName());
-		// validation statement : if already same name exist ,it wont work
-		if(newservice == null){
-			//id generated
-			int newId=sequence.findSequence();
-			String setNewId="R-";
+		if(student.getId()==null) {
+			Student newservice = service.getStudentByName(student.getName());
+			// validation statement : if already same name exist ,it wont work
+			if(newservice == null){
+				//id generated
+				int newId=sequence.findSequence();
+				String setNewId="R-";
 			
-			if(newId<10) {setNewId=setNewId+"00"+newId;}
-			else if (newId<100) {setNewId=setNewId+"0"+newId;}
-			else {setNewId=setNewId+newId;}
+				if(newId<10) {setNewId=setNewId+"00"+newId;}
+				else if (newId<100) {setNewId=setNewId+"0"+newId;}
+				else {setNewId=setNewId+newId;}
 						
-			student.setId(setNewId);
-			//student.setId(newId);
-			service.saveStudent(student);
-			sequence.update(newId);
-			return ("Sucess");
+				student.setId(setNewId);
+				//student.setId(newId);
+				service.saveStudent(student);
+				sequence.update(newId);
+				return ("Sucess");
+			}
+			else {
+				return("Failure : Identical name exist");
+			}
+		}else {
+			 service.saveStudent(student);
+			 return ("Updated");
 		}
-		else {
-			return("Failure : Identical name exist");
-		}
-		
 	}
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/addStudents")
