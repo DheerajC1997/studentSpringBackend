@@ -40,12 +40,17 @@ public class StudentController {
 				int newId=sequence.findSequence();
 				String setNewId="R-";
 			
-				if(newId<10) {setNewId=setNewId+"00"+newId;}
-				else if (newId<100) {setNewId=setNewId+"0"+newId;}
-				else {setNewId=setNewId+newId;}
+				if(newId<10) {
+					setNewId=setNewId+"00"+newId;
+				}
+				else if (newId<100) {
+					setNewId=setNewId+"0"+newId;
+				}
+				else {
+					setNewId=setNewId+newId;
+				}
 						
 				student.setId(setNewId);
-				//student.setId(newId);
 				service.saveStudent(student);
 				sequence.update(newId);
 				return ("Sucess");
