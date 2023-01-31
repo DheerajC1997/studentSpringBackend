@@ -1,15 +1,11 @@
 package com.example.demo.repository;
 
-
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.Student;
 
+import com.example.demo.entity.DatabaseSequence;
 
-public interface StudentRepository extends MongoRepository<Student,String> {
-	
-	Student findByName(String name);
-	
-	
+public interface SequenceRepoitory extends MongoRepository<DatabaseSequence, String> {
+
 }

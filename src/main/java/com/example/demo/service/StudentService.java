@@ -29,7 +29,7 @@ public class StudentService {
 		return repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
 		//return repository.findAll();
 	}
-	public Student getStudentById(int id) {
+	public Student getStudentById(String id) {
 //		Optional<Student> findById=repository.findById(id);
 //		Student student=findById.get();
 //		return student;
@@ -41,12 +41,13 @@ public class StudentService {
 	public Student getStudentByName(String name) {
 		return repository.findByName(name);
 	}
-	public String deleteStudent(int id) {
+	public String deleteStudent(String id) {
 		repository.deleteById(id);
 		return "Product removed"+id;
 	}
 	public Student updateStudent(Student student) {
-		Student existingStudent = repository.findById(student.getId()).orElse(null);
+		Student existingStudent= repository.findById(student.getId()).orElse(null);
+		//Student existingStudent = repository.findById(student.getId()).orElse(null);
 //		existingStudent.setName(student.getName());
 //		existingStudent.setDate(student.getDate());
 //		existingStudent.setClasses(student.getClasses());

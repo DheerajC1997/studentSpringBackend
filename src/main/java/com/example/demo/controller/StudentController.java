@@ -17,13 +17,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.Student;
+import com.example.demo.repository.SequenceRepoitory;
+import com.example.demo.service.SequenceService;
 import com.example.demo.service.StudentService;
 
-@RestController
+@RestController 
 public class StudentController {
 	
 	@Autowired
 	private StudentService service;
+	@Autowired
+	private SequenceService sequence;
 	
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/addStudent")
@@ -31,12 +35,21 @@ public class StudentController {
 		Student newservice = service.getStudentByName(student.getName());
 		// validation statement : if already same name exist ,it wont work
 		if(newservice == null){
+			//id generated
+			int newId=sequence.findSequence();
+			String setNewId="R-";
+			
+			if(newId<10) {setNewId=setNewId+"00"+newId;}
+			else if (newId<100) {setNewId=setNewId+"0"+newId;}
+			else {setNewId=setNewId+newId;}
+						
+			student.setId(setNewId);
+			//student.setId(newId);
 			service.saveStudent(student);
-			//System.out.println("Success");
+			sequence.update(newId);
 			return ("Sucess");
 		}
 		else {
-			//System.out.println("Failure : Identical name exist");
 			return("Failure : Identical name exist");
 		}
 		
@@ -56,7 +69,7 @@ public class StudentController {
 	}
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/getStudentById")
-	public Student findStudentById(@RequestParam int id) {
+	public Student findStudentById(@RequestParam String id) {
 		return service.getStudentById(id);
 	}
 	@CrossOrigin(origins = "http://localhost:3000")
@@ -71,7 +84,7 @@ public class StudentController {
 	}
 	@CrossOrigin(origins = "http://localhost:3000")
 	@DeleteMapping("/delete/{id}")
-	public String deleteStudent(@PathVariable int id) {
+	public String deleteStudent(@PathVariable String id) {
 		return service.deleteStudent(id);
 	}
 

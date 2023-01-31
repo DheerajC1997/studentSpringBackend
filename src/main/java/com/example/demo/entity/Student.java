@@ -3,22 +3,26 @@ package com.example.demo.entity;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "student")
 public class Student {
+	@Transient
+	public static final String SequenceName ="UserSequence";
+	
 	@Id
-	private int id;
+	private String id;
 	private String name;
 	private Date date;
 	private String classes; 
 	private String division;
 	private String gender;
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
